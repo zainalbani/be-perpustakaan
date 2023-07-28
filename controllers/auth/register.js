@@ -4,6 +4,7 @@ const UserModel = require("../../models").User;
 const register = async (req, res) => {
     const payload = req.body;
 
+    // payload.pass = await bcrypt.hashSync(payload.pass, 8);
 
     try{
         await UserModel.create(payload);
