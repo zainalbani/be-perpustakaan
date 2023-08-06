@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     pengarang: DataTypes.STRING,
     thnterbit: DataTypes.INTEGER,
     keterangan: DataTypes.STRING,
-    jml: DataTypes.STRING
+    jml: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Buku',
