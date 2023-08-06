@@ -21,7 +21,7 @@ router.put("/update/:idanggota",CUpdatePass.updatePassword)
 router.get("/getallbook", CGetAllBook.getAllBuku);
 router.get("/buku/getpinjambyid/:idanggota", CPinjamById.getPinjamById);
 router.get("/buku/getdetpinjambyid/:idpinjam", CDPinjamById.getDetailPinjamById);
-router.get("/buku/getbukubyid/:idbuku", CBukuById.getBukuById);
+router.get("/buku/getbookbyid/:idbuku", CBukuById.getBukuById);
 
 router.post("/qrcodes", CQrCode.qrPost);
 router.post("/detailpinjam", CDetailPinjam.detailPinjam);
