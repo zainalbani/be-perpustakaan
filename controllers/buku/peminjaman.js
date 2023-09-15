@@ -1,31 +1,68 @@
-const { Peminjaman } = require ("../../models");
-
-
-const peminjaman = async (req, res, next) => {
+const { Peminjaman, DetailPinjam, Buku } = require("../../models");
+const {sequelize} = require("../../models");
+const postPinjam = async (req, res) => {
     try {
+        const today = new Date();
+        const { idanggota } = req.params;
         const {
-            idpinjam,
-            idanggota,
-            tglpinjam,
-            idpetugas
+            idpinjam, idbuku
         } = req.body;
-        
+
+
+        const find = await Peminjaman.findAll({
+            where: { idanggota },
+            include: [
+                {
+                    model: DetailPinjam,
+                    as: "pinjam",
+                }
+            ]
+        });
+        console.log(find)
+        if (find.length >= 2) {
+            return res.status(400).send({
+                status: false,
+                message: "anda sudah mencapai batas peminjaman buku",
+                data: null,
+            })
+        };
+        const findBuku = await Buku.findOne({ where: { idbuku } });
+        if(findBuku.jml == 0){
+            return res.status(400).send({
+                status: false,
+                message: "stok buku habis",
+                data: null,
+            });
+        };
         const data = await Peminjaman.create({
             idpinjam: idpinjam,
-            tglpinjam: tglpinjam,
+            tglpinjam: today.toISOString(),
             idanggota: idanggota,
-            idpetugas: idpetugas
+            idpetugas: 1,
+            status: "Pinjam",
+            estimasi_tgl_kembali: sequelize.literal('DATE_ADD(NOW(), INTERVAL 7 DAY)')
+        });
 
-        })
 
-        return res.status(200).json({
+        await DetailPinjam.create({
+            idpinjam,
+            idbuku: idbuku,
+            jml_buku: "1",
+            status: "Pinjam"
+
+        });
+        await Buku.update({
+            jml: findBuku.jml - 1
+        },
+            { where: { idbuku } }
+        );
+        return res.status(200).send({
             status: true,
-            message: "Peminjaman berhasil",
+            message: "Peminjaman Berhasil",
             data: data,
         });
-    } catch(error) {
-        next(error);
-    };
-};
-
-module.exports = {peminjaman};
+    } catch (err) {
+        console.log(err);
+    }
+}
+module.exports = { postPinjam }

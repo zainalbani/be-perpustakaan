@@ -9,6 +9,12 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+
+            User.hasMany(models.Peminjaman,
+                {
+                    foreignKey: 'idanggota',
+                    as: "id_anggota"
+                });
         }
     }
     User.init(
@@ -40,8 +46,8 @@ module.exports = (sequelize, DataTypes) => {
             timestamps: false,
             indexes: [
                 {
-                  unique: true, // This will create a unique index on the 'username' column
-                  fields: ['idkelas'],
+                    unique: true, // This will create a unique index on the 'username' column
+                    fields: ['idkelas'],
                 },
             ]
         }

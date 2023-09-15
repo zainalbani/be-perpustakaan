@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Buku.hasMany(models.DetailPinjam, {
+        foreignKey: 'idbuku',
+        as: 'buku'
+       });
     }
   }
   Buku.init({
@@ -27,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
     thnterbit: DataTypes.INTEGER,
     keterangan: DataTypes.STRING,
     jml: DataTypes.STRING,
+    barcode: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Buku',

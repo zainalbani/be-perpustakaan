@@ -10,6 +10,11 @@ const getBukuById = async (req, res) => {
                 message: "id not found",
             });
         }
+        if (id.jml == 0) {
+            return res.status(400).send({
+                message: "stok buku tidak ada",
+            });
+        }
 
         return res.status(200).send({
             status: true,

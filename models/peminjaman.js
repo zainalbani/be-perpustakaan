@@ -12,17 +12,28 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Peminjaman.hasMany(models.DetailPinjam,
+         { 
+          foreignKey: 'idpinjam',
+          as: "pinjam"
+        });
+        Peminjaman.belongsTo(models.User, {
+          foreignKey: 'idanggota',
+          as: 'id_anggota'
+         });
     }
   }
   Peminjaman.init({
     idpinjam: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      unique : true
     },
     tglpinjam: DataTypes.DATE,
     idanggota: DataTypes.STRING,
     idpetugas: DataTypes.INTEGER,
-    status: DataTypes.STRING
+    status: DataTypes.STRING,
+    total_denda: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Peminjaman',

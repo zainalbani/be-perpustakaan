@@ -11,6 +11,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+
+      DetailPinjam.belongsTo(models.Buku, {
+        foreignKey: 'idbuku',
+        as: 'buku'
+       });
+      DetailPinjam.belongsTo(models.Peminjaman, {
+        foreignKey: 'idpinjam',
+        as: 'pinjam'
+       });
+
+
     }
   }
   DetailPinjam.init({

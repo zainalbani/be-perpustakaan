@@ -6,12 +6,11 @@ const CGetById = require("../controllers/auth/getById.js");
 const CUpdatePass = require("../controllers/user/updatePassword.js");
 const CGetAllBook = require("../controllers/buku/getBuku.js");
 const CQrCode = require("../controllers/qrCode.js");
-const CDetailPinjam = require("../controllers/buku/detailPinjam.js");
-const CPeminjaman = require("../controllers/buku/peminjaman.js");
 const CPinjamById = require("../controllers/buku/getPinjam.js");
 const CDPinjamById = require("../controllers/buku/getDetailPinjamById.js");
 const CBukuById = require("../controllers/buku/getBukuById.js");
-
+const CPinjam = require("../controllers/buku/peminjaman.js");
+const CGetIdPinjam = require("../controllers/buku/getIdPinjam.js");
 
 router.post("/register", CRegister.register);
 router.post("/login", CLogin.login);
@@ -22,8 +21,8 @@ router.get("/getallbook", CGetAllBook.getAllBuku);
 router.get("/buku/getpinjambyid/:idanggota", CPinjamById.getPinjamById);
 router.get("/buku/getdetpinjambyid/:idpinjam", CDPinjamById.getDetailPinjamById);
 router.get("/buku/getbookbyid/:idbuku", CBukuById.getBukuById);
+router.post("/buku/peminjaman/:idanggota", CPinjam.postPinjam);
+router.get("/buku/getidpinjam", CGetIdPinjam.getIdPinjam);
 
-router.post("/qrcodes", CQrCode.qrPost);
-router.post("/detailpinjam", CDetailPinjam.detailPinjam);
-router.post("/peminjaman", CPeminjaman.peminjaman);
+router.put("/qrcodes", CQrCode.qrPost);
 module.exports = router;
