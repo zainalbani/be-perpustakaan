@@ -32,8 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     tglpinjam: DataTypes.DATE,
     idanggota: DataTypes.STRING,
     idpetugas: DataTypes.INTEGER,
-    status: DataTypes.STRING,
-    total_denda: DataTypes.STRING
+    status: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Peminjaman',
